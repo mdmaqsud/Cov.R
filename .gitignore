@@ -1,0 +1,46 @@
+
+Coverage Plot for single genome reads
+
+#!/usr/bin/Rscript
+
+# source("http://www.bioconductor.org/biocLite.R")
+# 
+# biocLite("Rsamtools")
+# biocLite("GenomeGraphs")
+# biocLite("GenomicFeatures")
+# biocLite("ShortRead")
+# biocLite("HilbertVis")
+# biocLite("ggplot2")
+# biocLite("gridExtra")
+
+library(Rsamtools)
+library(GenomeGraphs)
+library(GenomicFeatures)
+library(ShortRead)
+library(HilbertVis)
+library(ggplot2)
+library(gridExtra)
+
+################################################################
+#  USER VARIABLES
+
+bam.file <- "mapped.0140J.sam.bam"        # bam file
+contig.name <-"gi|222113012|emb|AM946015.1|"   # name of fiel mapped to look at the sam #fiel to know correct name
+, here we used the name of the reference genome from ncbi/ebi
+max_y <- 500                             # scale of y axis 
+, the max coverage you expect in this case
+output.file <- "0140J.pdf"                # name of pdf for saving output
+################################################################
+
+
+aln<-readGappedAlignments(bam.file)
+cov<-coverage(aln)
+covnum<-as.numeric(cov[[contig.name]])
+covframe<-data.frame(position=seq(0, length(covnum), length.out=5000), coverage=shrinkVector(as.vector(covnum), 5000, mode="mean"))
+plot1<-ggplot(covframe, aes(position, coverage), log="y") + geom_point(alpha=1/10) + stat_smooth() + scale_y_continuous(limits=c(0,max_y)) #limits=c(0,500)) editable ,500 is the y #max
+plot1
+ggsave(file= output.file, plot1, width=4.8, height=3.6)
+
+
+
+
