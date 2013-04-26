@@ -1,4 +1,3 @@
-
 Coverage Plot for single genome reads
 
 #!/usr/bin/Rscript
@@ -26,10 +25,10 @@ library(gridExtra)
 
 bam.file <- "mapped.0140J.sam.bam"        # bam file
 contig.name <-"gi|222113012|emb|AM946015.1|"   # name of fiel mapped to look at the sam #fiel to know correct name
-, here we used the name of the reference genome from ncbi/ebi
-max_y <- 500                             # scale of y axis 
-, the max coverage you expect in this case
-output.file <- "0140J.pdf"                # name of pdf for saving output
+                                              #here we used the name of the reference genome from ncbi/ebi
+max_y <- 500                                  # scale of y axis 
+                                              #the max coverage you expect in this case
+output.file <- "0140J.pdf"                    # name of pdf for saving output
 ################################################################
 
 
