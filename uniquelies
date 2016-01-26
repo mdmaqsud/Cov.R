@@ -1,0 +1,2 @@
+##this awk one liner will remove duplicates based on first two columns
+ awk '!a[$1,$2]++' filename
