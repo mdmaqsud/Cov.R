@@ -1,24 +1,26 @@
-source("http://www.bioconductor.org/biocLite.R")
+################heatmap that is working##################33
+require(graphics); require(grDevices)
+setwd("~/R_data") # set to what required
+data <- read.csv ( file.choose(), header = TRUE, row.names=1)
+dim(data)
+number <- cbind(data[,1], data[,2], data[,3], data[,4], data[,5], data[,6], data[,7], data[,8], data[,9])
+#biocLite("gplots")
 
-data <- read.table ( file.choose(), header = TRUE, row.names=1)
-
-numbers <- cbind(data[,1], data[,2], data[,3], data[,4], data[,5], data[,6], data[,7], data[,8], data[,9], data[,10], data[,11], data[,12], data[,13], data[,14], data[,15], data[,16], data[,17], data[,18], data[,19], data[,20], data[,21]) # add additonal columns as needed
-
-# biocLite("gplots")
 library("gplots")
-pdf("heatmap.pdf")
-heatmap.2(numbers, 
-          col=redgreen(77) ,
+pdf("heatmap_grp1_2_dominant.pdf")
+hmcols<-colorRampPalette(c("cadetblue","yellow"))(75)
+heatmap.2(number,
+          col=hmcols,
           scale="none",
           key=TRUE,
           symkey=FALSE,
           dendrogram="both",
           density.info="none",
           trace="none",
-          0,0
-          cexCol = 1,
+          cexRow= 0.6,
+          cexCol = 0.8,
           labRow = rownames(data),
           labCol = colnames(data),
-          margins=c(4,10)
-          )
+          margins=c(7, 5)
+)
 dev.off()
